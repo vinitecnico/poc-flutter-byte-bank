@@ -12,22 +12,13 @@ class _ContactFormState extends State<ContactForm> {
       TextEditingController();
 
   void _createContact(context) {
-    // final int? accountNumber = int.tryParse(_controladorCampoNumeroConta.text);
-    // final double? amount = double.tryParse(_controllerAmount.text);
-    // if (accountNumber != null && amount != null && _dropdownValue != null) {
-    //   final Transfer? transferCreated =
-    //       Transfer(amount, _dropdownValue.toString(), accountNumber);
-    //   debugPrint("$transferCreated");
-    //   Navigator.pop(context, transferCreated);
-    // }
-
     final String name = _nameController.text;
     final int? accountNumber = int.tryParse(_accountNumberController.text);
 
-    // if (name != null && accountNumber != null) {
-    final Contact newContact = Contact(name, accountNumber);
-    Navigator.pop(context, newContact);
-    // }
+    if (name != null && accountNumber != null) {
+      final Contact newContact = Contact(name, accountNumber);
+      Navigator.pop(context, newContact);
+    }
   }
 
   @override
