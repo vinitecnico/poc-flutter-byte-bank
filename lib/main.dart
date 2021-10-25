@@ -1,17 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:poc_byte_bank_v2/database/app_database.dart';
-import 'package:poc_byte_bank_v2/models/contact.dart';
 import 'package:poc_byte_bank_v2/screens/dashboard.dart';
 
 void main() {
   runApp(const ByteBankApp());
-  debugPrint('start>>>');
-  save(Contact(0, 'vinicius', 123)).then((id) {
-    debugPrint('here>>>');
-    findAll().then((contacts) {
-      debugPrint(contacts.toString());
-    });
-  });
 }
 
 class ByteBankApp extends StatelessWidget {
