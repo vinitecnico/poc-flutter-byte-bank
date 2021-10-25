@@ -5,7 +5,9 @@ import 'package:poc_byte_bank_v2/screens/dashboard.dart';
 
 void main() {
   runApp(const ByteBankApp());
+  debugPrint('start>>>');
   save(Contact(0, 'vinicius', 123)).then((id) {
+    debugPrint('here>>>');
     findAll().then((contacts) {
       debugPrint(contacts.toString());
     });

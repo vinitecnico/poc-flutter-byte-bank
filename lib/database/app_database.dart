@@ -16,11 +16,12 @@ Future<Database> createDatabase() {
 
 Future<int> save(Contact contact) {
   return createDatabase.call().then((db) {
-    final Map<String, dynamic> contactMap = Map();
-    contactMap['id'] = contact.id;
-    contactMap['name'] = contact.name;
-    contactMap['account_number'] = contact.accountNumber;
-    return db.insert('contacts', contactMap);
+    // final Map<String, dynamic> contactMap = Map();
+    // contactMap['id'] = contact.id;
+    // contactMap['name'] = contact.name;
+    // contactMap['account_number'] = contact.accountNumber;
+    // return db.insert('contacts', contactMap);
+    return db.insert('contacts', contact.toMap());
   });
 }
 

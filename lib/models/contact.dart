@@ -5,8 +5,16 @@ class Contact {
 
   Contact(this.id, this.name, this.accountNumber);
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'account_number': accountNumber,
+    };
+  }
+
   @override
   String toString() {
-    return 'contact{name: $name, accountNumber: $accountNumber}';
+    return 'contact{id: $id, name: $name, accountNumber: $accountNumber}';
   }
 }
