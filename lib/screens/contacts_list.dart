@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
+import 'package:poc_byte_bank_v2/database/app_database.dart';
 import 'package:poc_byte_bank_v2/models/contact.dart';
 import 'package:poc_byte_bank_v2/screens/contact_form.dart';
 
 class ContactList extends StatelessWidget {
-  final List<Contact> contacts = [];
-  ContactList({Key? key}) : super(key: key);
+  const ContactList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    contacts.add(Contact(0, 'test', 123));
     return Scaffold(
       appBar: AppBar(
-        title: Text('contacts'),
+        title: const Text('contacts'),
       ),
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          final Contact contact = contacts[index];
-          return _ContactItem(contact);
+      body: FutureBuilder<List<Contact>>(
+        future: findAll(),
+        builder: (BuildContext context, AsyncSnapshot<List<Contact>> snapshot) {
+          final List<Contact>? contacts = snapshot.data;
+          return ListView.builder(
+            itemBuilder: (context, index) {
+              final Contact contact = contacts![index];
+              return _ContactItem(contact);
+            },
+            itemCount: snapshot.hasData ? contacts?.length : 0,
+          );
         },
-        itemCount: contacts.length,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -47,12 +51,12 @@ class _ContactItem extends StatelessWidget {
       child: ListTile(
         title: Text(
           contact.name,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 24.0,
           ),
         ),
         subtitle: Text(contact.accountNumber.toString(),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16.0,
             )),
       ),
