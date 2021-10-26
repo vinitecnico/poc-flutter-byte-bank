@@ -15,14 +15,33 @@ class ContactList extends StatelessWidget {
       body: FutureBuilder<List<Contact>>(
         future: findAll(),
         builder: (BuildContext context, AsyncSnapshot<List<Contact>> snapshot) {
-          final List<Contact>? contacts = snapshot.data;
-          return ListView.builder(
-            itemBuilder: (context, index) {
-              final Contact contact = contacts![index];
-              return _ContactItem(contact);
-            },
-            itemCount: snapshot.hasData ? contacts?.length : 0,
-          );
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              break;
+            case ConnectionState.waiting:
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                    Text('Loading'),
+                  ],
+                ),
+              );
+            case ConnectionState.active:
+              break;
+            case ConnectionState.done:
+              final List<Contact>? contacts = snapshot.data;
+              return ListView.builder(
+                itemBuilder: (context, index) {
+                  final Contact contact = contacts![index];
+                  return _ContactItem(contact);
+                },
+                itemCount: contacts?.length,
+              );
+          }
+          return const Text('unknown error');
         },
       ),
       floatingActionButton: FloatingActionButton(
