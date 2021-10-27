@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:poc_byte_bank_v2/database/app_database.dart';
+import 'package:poc_byte_bank_v2/database/dao/contact_dao.dart';
 import 'package:poc_byte_bank_v2/models/contact.dart';
 
 class ContactForm extends StatefulWidget {
@@ -12,13 +12,15 @@ class _ContactFormState extends State<ContactForm> {
   final TextEditingController _accountNumberController =
       TextEditingController();
 
+  final ContactDao _dao = ContactDao();
+
   void _createContact(context) {
     final String name = _nameController.text;
     final int? accountNumber = int.tryParse(_accountNumberController.text);
 
     if (name != null && accountNumber != null) {
-      final Contact newContact = Contact(0, name, accountNumber);
-      save(newContact).then((id) => Navigator.pop(context));
+      final Contact newContact = Contact(null, name, accountNumber);
+      _dao.save(newContact).then((id) => Navigator.pop(context));
     }
   }
 
