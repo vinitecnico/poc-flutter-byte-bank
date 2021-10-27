@@ -1,4 +1,5 @@
 import 'package:path/path.dart';
+import 'package:poc_byte_bank_v2/database/dao/contact_dao.dart';
 import 'package:sqflite/sqflite.dart';
 
 Future<Database> createDatabase() async {
@@ -6,10 +7,7 @@ Future<Database> createDatabase() async {
   return openDatabase(
     path,
     onCreate: (db, version) {
-      db.execute('CREATE TABLE contacts('
-          'id INTEGER PRIMARY KEY, '
-          'name TEXT, '
-          'account_number INTEGER) ');
+      db.execute(ContactDao.tableSql);
     },
     version: 1,
     // onDowngrade: onDatabaseDowngradeDelete,
